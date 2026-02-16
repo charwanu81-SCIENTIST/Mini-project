@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string name;
+    float amount = 0;
+    float subtotal = 0;
+    char more;
+
+    cout << "====== Simple Billing App ======\n";
+
+    do {
+        cout << "\nEnter item/customer name: ";
+        cin >> name;
+
+        cout << "Enter amount: ";
+        cin >> amount;
+
+        
+        subtotal += amount;
+
+        cout << "Do you want to add more items? (y/n): ";
+        cin >> more;
+
+    } while (more == 'y' || more == 'Y');
+
+    
+    float tax = subtotal * 0.05;     // 5% tax
+    float gst = subtotal * 0.18;     // 18% GST
+    float finalTotal = subtotal + tax + gst;
+
+    
+    cout << "\n========== BILL SUMMARY ==========\n";
+    cout << "Subtotal : " << subtotal << endl;
+    cout << "5% Tax   : " << tax << endl;
+    cout << "18% GST  : " << gst << endl;
+    cout << "----------------------------------\n";
+    cout << "Final Amount to Pay : " << finalTotal << endl;
+    cout << "==================================\n";
+    cout << "Thank you! Visit again 😊\n";
+
+    return 0;
+}
