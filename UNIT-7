@@ -1,0 +1,108 @@
+#include <iostream>
+using namespace std;
+
+class Product {
+public:
+    int id;
+    string name;
+    float price;
+    int quantity;
+
+    void input() {
+        cout << "Enter Product ID: ";
+        cin >> id;
+
+        cout << "Enter Product Name: ";
+        cin >> name;
+
+        cout << "Enter Price: ";
+        cin >> price;
+
+        cout << "Enter Quantity: ";
+        cin >> quantity;
+    }
+
+    void display() {
+        cout << "\nID: " << id;
+        cout << "\nName: " << name;
+        cout << "\nPrice: " << price;
+        cout << "\nQuantity: " << quantity << endl;
+    }
+};
+
+int main() {
+    Product p[100];
+    int count = 0;
+    int choice;
+
+    do {
+        cout << "\n===== INVENTORY SYSTEM =====";
+        cout << "\n1. Add Product";
+        cout << "\n2. Display Products";
+        cout << "\n3. Search Product";
+        cout << "\n4. Update Product";
+        cout << "\n5. Exit";
+        cout << "\nEnter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                p[count].input();
+                count++;
+                cout << "Product added!\n";
+                break;
+
+            case 2:
+                for (int i = 0; i < count; i++) {
+                    p[i].display();
+                    cout << "\n----------------";
+                }
+                break;
+
+            case 3: {
+                int id, found = 0;
+                cout << "Enter ID to search: ";
+                cin >> id;
+
+                for (int i = 0; i < count; i++) {
+                    if (p[i].id == id) {
+                        p[i].display();
+                        found = 1;
+                    }
+                }
+
+                if (!found)
+                    cout << "Not found!";
+                break;
+            }
+
+            case 4: {
+                int id, found = 0;
+                cout << "Enter ID to update: ";
+                cin >> id;
+
+                for (int i = 0; i < count; i++) {
+                    if (p[i].id == id) {
+                        cout << "Enter new details:\n";
+                        p[i].input();
+                        found = 1;
+                    }
+                }
+
+                if (!found)
+                    cout << "Not found!";
+                break;
+            }
+
+            case 5:
+                cout << "Exiting...\n";
+                break;
+
+            default:
+                cout << "Invalid choice!";
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
