@@ -1,0 +1,132 @@
+#include <iostream>
+using namespace std;
+
+class Point {
+private:
+    int x, y;
+
+public:
+
+    
+    Point() {
+        x = 0;
+        y = 0;
+    }
+
+    
+    void input() {
+        cout << "Enter X coordinate: ";
+        cin >> x;
+        cout << "Enter Y coordinate: ";
+        cin >> y;
+    }
+
+    
+    void display() {
+        cout << "(" << x << "," << y << ")" << endl;
+    }
+
+    
+    Point operator+(Point p) {
+        Point temp;
+        temp.x = x + p.x;
+        temp.y = y + p.y;
+        return temp;
+    }
+
+    
+    Point operator-(Point p) {
+        Point temp;
+        temp.x = x - p.x;
+        temp.y = y - p.y;
+        return temp;
+    }
+
+    
+    Point operator++() {
+        x++;
+        y++;
+        return *this;
+    }
+
+    
+    bool operator==(Point p) {
+        if (x == p.x && y == p.y)
+            return true;
+        else
+            return false;
+    }
+};
+
+int main() {
+
+    Point p1, p2, result;
+    int choice;
+
+    while (true) {
+
+        cout << "\n------ 2D Geometry Toolkit ------\n";
+        cout << "1. Enter Point 1\n";
+        cout << "2. Enter Point 2\n";
+        cout << "3. Add Points\n";
+        cout << "4. Subtract Points\n";
+        cout << "5. Increment Point1\n";
+        cout << "6. Compare Points\n";
+        cout << "7. Display Points\n";
+        cout << "8. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+
+        case 1:
+            cout << "Enter Point 1:\n";
+            p1.input();
+            break;
+
+        case 2:
+            cout << "Enter Point 2:\n";
+            p2.input();
+            break;
+
+        case 3:
+            result = p1 + p2;
+            cout << "Addition Result: ";
+            result.display();
+            break;
+
+        case 4:
+            result = p1 - p2;
+            cout << "Subtraction Result: ";
+            result.display();
+            break;
+
+        case 5:
+            ++p1;
+            cout << "Point1 after increment: ";
+            p1.display();
+            break;
+
+        case 6:
+            if (p1 == p2)
+                cout << "Points are Equal\n";
+            else
+                cout << "Points are Not Equal\n";
+            break;
+
+        case 7:
+            cout << "Point1: ";
+            p1.display();
+            cout << "Point2: ";
+            p2.display();
+            break;
+
+        case 8:
+            cout << "Program Ended\n";
+            return 0;
+
+        default:
+            cout << "Invalid choice\n";
+        }
+    }
+}
