@@ -1,0 +1,200 @@
+#include <iostream>
+using namespace std;
+
+/* -------- MACRO -------- */
+#define PI 3.14
+
+
+int factorial(const int n);
+int power(int base, int exp = 2);   
+bool isPrime(int n);
+int digitSum(int n);
+
+
+inline int square(int x);
+inline float square(float x);
+
+void swapNumbers(int &a, int &b);   
+
+int add(int a, int b);
+float add(float a, float b);
+
+
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        cout << "\n===== Math Toolkit Library =====\n";
+        cout << "1. Factorial\n";
+        cout << "2. Power\n";
+        cout << "3. Prime Check\n";
+        cout << "4. Digit Sum\n";
+        cout << "5. Square (Inline Function)\n";
+        cout << "6. Swap Numbers (Pass by Reference)\n";
+        cout << "0. Exit\n";
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if(choice == 1)
+        {
+            int n;
+            cout << "Enter number: ";
+            cin >> n;
+            cout << "Factorial = " << factorial(n) << endl;
+        }
+
+        else if(choice == 2)
+        {
+            int base, exp;
+            cout << "Enter base: ";
+            cin >> base;
+            cout << "Enter exponent: ";
+            cin >> exp;
+
+            cout << "Power = " << power(base, exp) << endl;
+        }
+
+        else if(choice == 3)
+        {
+            int n;
+            cout << "Enter number: ";
+            cin >> n;
+
+            if(isPrime(n))
+                cout << "Number is Prime\n";
+            else
+                cout << "Number is Not Prime\n";
+        }
+
+        else if(choice == 4)
+        {
+            int n;
+            cout << "Enter number: ";
+            cin >> n;
+            cout << "Digit Sum = " << digitSum(n) << endl;
+        }
+
+        else if(choice == 5)
+        {
+            int type;
+            cout << "1. Integer Square\n2. Float Square\n";
+            cout << "Choose type: ";
+            cin >> type;
+
+            if(type == 1)
+            {
+                int n;
+                cout << "Enter integer: ";
+                cin >> n;
+                cout << "Square = " << square(n) << endl; // int version
+            }
+            else
+            {
+                float n;
+                cout << "Enter float: ";
+                cin >> n;
+                cout << "Square = " << square(n) << endl; // float version
+            }
+        }
+
+        else if(choice == 6)
+        {
+            int a,b;
+            cout << "Enter two numbers: ";
+            cin >> a >> b;
+
+            swapNumbers(a,b);
+
+            cout << "After Swap: " << a << " " << b << endl;
+        }
+
+    } while(choice != 0);
+
+    return 0;
+}
+
+
+
+int factorial(const int n)
+{
+    int fact = 1;
+
+    for(int i = 1; i <= n; i++)
+        fact = add(fact, (fact*(i-1))); // using overloaded add internally
+
+    return fact;
+}
+
+int power(int base, int exp)
+{
+    int result = 1;
+
+    for(int i = 1; i <= exp; i++)
+        result *= base;
+
+    return result;
+}
+
+bool isPrime(int n)
+{
+    if(n <= 1)
+        return false;
+
+    for(int i = 2; i < n; i++)
+    {
+        if(n % i == 0)
+            return false;
+    }
+
+    return true;
+}
+
+int digitSum(int n)
+{
+    int sum = 0;
+
+    while(n > 0)
+    {
+        sum = add(sum, n % 10);  // overloaded add used
+        n /= 10;
+    }
+
+    return sum;
+}
+
+
+
+inline int square(int x)
+{
+    return x * x;
+}
+
+inline float square(float x)
+{
+    return x * x;
+}
+
+
+
+void swapNumbers(int &a, int &b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+
+
+int add(int a, int b)
+{
+    return a + b;
+}
+
+float add(float a, float b)
+{
+    return a + b;
+}
