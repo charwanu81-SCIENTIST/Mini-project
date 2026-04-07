@@ -1,0 +1,137 @@
+#include <iostream>
+using namespace std;
+
+class Student {
+private:
+    int roll;
+    string name;
+    float m1, m2, m3;
+    float percentage;
+
+public:
+
+    
+    Student() {
+        roll = 0;
+        name = "None";
+        m1 = m2 = m3 = 0;
+        percentage = 0;
+    }
+
+    
+    void input() {
+        cout << "Enter Roll Number: ";
+        cin >> roll;
+
+        cout << "Enter Name: ";
+        cin >> name;
+
+        cout << "Enter Marks of 3 Subjects: ";
+        cin >> m1 >> m2 >> m3;
+
+        percentage = (m1 + m2 + m3) / 3;
+    }
+
+    
+    int getRoll() {
+        return roll;
+    }
+
+    
+    void grade() {
+        if (percentage >= 80)
+            cout << "Grade: Excellent";
+        else if (percentage >= 70)
+            cout << "Grade: Good";
+        else if (percentage >= 60)
+            cout << "Grade: Fair";
+        else if (percentage >= 40)
+            cout << "Grade: Pass";
+        else
+            cout << "Grade: Fail";
+    }
+
+    
+    void display() {
+        cout << "\nRoll Number: " << roll;
+        cout << "\nName: " << name;
+        cout << "\nMarks: " << m1 << ", " << m2 << ", " << m3;
+        cout << "\nPercentage: " << percentage << "%\n";
+        grade();
+        cout << "\n";
+    }
+
+    
+    ~Student() {
+        
+    }
+};
+
+int main() {
+
+    Student students[100];
+    int choice;
+    int count = 0;
+
+    while (true) {
+
+        cout << "\n\n===== Student Profile Manager =====";
+        cout << "\n1. Add Student";
+        cout << "\n2. Display All Students";
+        cout << "\n3. Search by Roll Number";
+        cout << "\n4. Exit";
+        cout << "\nEnter Choice: ";
+        cin >> choice;
+
+        switch(choice) {
+
+            case 1:
+                if(count < 100) {
+                    students[count].input();
+                    count++;
+                } else {
+                    cout << "Student storage full!";
+                }
+                break;
+
+            case 2:
+                if(count == 0) {
+                    cout << "No student records found.";
+                } else {
+                    for(int i = 0; i < count; i++) {
+                        cout << "\n--- Student " << i+1 << " ---";
+                        students[i].display();
+                    }
+                }
+                break;
+
+            case 3: {
+                int searchRoll;
+                bool found = false;
+
+                cout << "Enter Roll Number to search: ";
+                cin >> searchRoll;
+
+                for(int i = 0; i < count; i++) {
+                    if(students[i].getRoll() == searchRoll) {
+                        cout << "\nStudent Found:";
+                        students[i].display();
+                        found = true;
+                        break;
+                    }
+                }
+
+                if(!found)
+                    cout << "Student not found.";
+                break;
+            }
+
+            case 4:
+                cout << "Program Exiting...";
+                return 0;
+
+            default:
+                cout << "Invalid Choice!";
+        }
+    }
+}
