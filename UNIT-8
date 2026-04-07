@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+using namespace std;
+
+
+template <typename T>
+T processData(T value) {
+    if (value < 0) {
+        throw value; // throw invalid negative value
+    }
+    return value * value; 
+(square)
+}
+
+
+template <typename T>
+class DataProcessor {
+private:
+    vector<T> data;
+
+public:
+    void addData(T value) {
+        data.push_back(value);
+    }
+
+    void displayData() {
+        cout << "\nProcessed Data:\n";
+        for (int i = 0; i < data.size(); i++) {
+            cout << data[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    DataProcessor<int> dp;
+    int n, value;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        try {
+            cout << "Enter value " << i + 1 << ": ";
+            cin >> value;
+
+            // Input validation
+            if (cin.fail()) {
+                throw runtime_error("Invalid input (not a number)");
+            }
+
+            int result = processData(value); // template function
+            dp.addData(result);
+
+        }
+        catch (int v) {
+            cout << "Exception: Negative value not allowed (" << v << ")\n";
+        }
+        catch (runtime_error &e) {
+            cout << "Exception: " << e.what() << endl;
+
+            cin.clear();          // clear error
+            cin.ignore(1000, '\n'); // discard bad input
+            i--; // retry same input
+        }
+        catch (...) {
+            cout << "Unknown error occurred!\n";
+        }
+    }
+
+    dp.displayData();
+
+    return 0;
+}
